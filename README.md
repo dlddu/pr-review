@@ -9,7 +9,7 @@ PR 리뷰를 자동화하되, **자동화된 리뷰를 신뢰할 수 있도록**
 
 ## 문서 체계
 
-가치 → PRD → Acceptance Criteria → 테스트 → 상태 추적의 계층 구조.
+가치 → PRD → Acceptance Criteria → 테스트 → 상태 추적의 계층 구조. 가치에서 갈라져 나오는 **사용자 여정**(프론트엔드 사슬)도 같은 가치를 참조하며 함께 둔다.
 
 ```
 docs/
@@ -23,14 +23,20 @@ docs/
 │   ├── logic-engine.md     # 리뷰 논리 엔진 (주장·근거 분리)
 │   ├── gap-detection.md    # 논리 공백 탐지 및 보완
 │   └── presentation.md     # 리뷰 결과 표현 (인지 순서)
-└── tests/              # 각 PRD의 AC 검증 테스트 (1:1 대응)
-    ├── metadata.md
-    ├── context.md
-    ├── perspectives.md
-    ├── knowledge-base.md
-    ├── logic-engine.md
-    ├── gap-detection.md
-    └── presentation.md
+├── tests/              # 각 PRD의 AC 검증 테스트 (1:1 대응)
+│   ├── metadata.md
+│   ├── context.md
+│   ├── perspectives.md
+│   ├── knowledge-base.md
+│   ├── logic-engine.md
+│   ├── gap-detection.md
+│   └── presentation.md
+└── user-journeys/      # 사용자 여정 (J1~J4, 가치 → 여정 → mockup)
+    ├── README.md                     # 여정 인덱스 (여정↔가치↔mockup 단일 소스)
+    ├── review-consume-trust.md       # J1: 자동 리뷰 소비 → 신뢰 검증 (V2·V1)
+    ├── gap-fill-rereview.md          # J2: 논리 공백 보완 → 재리뷰 (V5·V1)
+    ├── context-adaptive-review.md    # J3: 맥락 적응형 리뷰 받기 (V3)
+    └── metadata-knowledge-augment.md # J4: 부족한 메타데이터 지식 보강 (V4)
 ```
 
 ## 제품 가치 (요약)
@@ -42,6 +48,19 @@ docs/
 | V3 | 맥락 적응형 평가 | 추상적 |
 | V4 | 축적되는 메타데이터 지식 | 추상적 |
 | V5 | 논리적 공백의 가시화와 보완 | 구체적 |
+
+## 사용자 여정 (요약)
+
+5개 가치를 빠짐없이 덮는 여정 4개. 단일 페르소나(제품 소유자 본인)가 공유하며, 상황·목표만 다르다. 상세·연결 매트릭스는 [`docs/user-journeys/README.md`](docs/user-journeys/README.md).
+
+| | 여정 | 달성 가치 | mockup |
+|---|------|-----------|--------|
+| J1 | 자동 리뷰 소비 → 신뢰 검증 | V2, V1 | 🔲 TBD |
+| J2 | 논리 공백 보완 → 재리뷰 | V5, V1 | 🔲 TBD |
+| J3 | 맥락 적응형 리뷰 받기 | V3 | 🔲 TBD |
+| J4 | 부족한 메타데이터 지식 보강 | V4 | 🔲 TBD |
+
+> mockup·디자인 시스템은 아직 없음 — 모든 여정 단계가 시각화 누락(현 단계에서 의도됨). 디자인 시스템 정의 → mockup 작성 → 인덱스 연결 순서로 채운다.
 
 ## 리뷰 결과 인지 순서
 
