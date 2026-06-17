@@ -17,32 +17,33 @@
 - **사용자**: 리뷰를 읽기 전에 무엇에 대한 PR인지부터 인지한다.
 - **시스템**: 메타데이터·컨텍스트의 핵심을 반영한 PR 요약을 가장 먼저 보여준다.
 - **관련 PRD/AC**: PRD-7 AC7-3
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [review-detail · 레이어 1 PR 요약](../mockups/review-detail.html)
 
 ### S2: 리뷰 결론 확인
 - **사용자**: 결론만 보고 리뷰의 핵심을 파악한다. 납득되면 여기서 멈춘다.
 - **시스템**: 고정 순서의 두 번째 섹션으로 결론을 제시하고, 하위 논리는 접어 둔다.
 - **관련 PRD/AC**: PRD-7 AC7-1·AC7-2, PRD-5 AC5-1
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [review-detail · 레이어 2 결론](../mockups/review-detail.html)
 
 ### S3: (필요 시) 결론을 만든 논리 펼치기
 - **사용자**: 결론이 의심스러우면 논리 체인을 펼쳐 주장들의 연결을 본다.
 - **시스템**: 결론을 뒷받침하는 주장 체인을 on-demand로 펼쳐 보여준다.
 - **관련 PRD/AC**: PRD-5 AC5-4·AC5-5, PRD-7 AC7-2
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [review-detail · 레이어 3 주장 체인](../mockups/review-detail.html)
 
 ### S4: (필요 시) 각 주장의 관점·근거 드릴다운
 - **사용자**: 특정 주장이 어디서 왔고 무엇에 근거하는지 확인한다 — 신뢰의 실제 근거.
 - **시스템**: 주장 → 근거, 주장 → 관점을 양방향으로 추적 가능하게 드릴다운으로 제공한다.
 - **관련 PRD/AC**: PRD-5 AC5-2·AC5-3, PRD-3 AC3-4, PRD-7 AC7-4
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [review-detail · 레이어 4 관점·근거 드릴다운](../mockups/review-detail.html)
 
 ### S5: 종결 또는 추가 행동 결정
 - **사용자**: 신뢰되면 리뷰를 종결한다. 논리 공백이 보이면 보완 여정(J2)으로 넘어간다.
 - **시스템**: 종결 상태를 기록한다. **PR 머지 등 코드베이스를 바꾸는 행위는 하지 않는다.**
 - **관련 PRD/AC**: PRD-6 AC6-4·AC6-5
 - **분기**: 공백 발견 시 → [J2: 논리 공백 보완 → 재리뷰](./gap-fill-rereview.md)
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [review-detail · 레이어 6 액션 바(머지 금지 경계)](../mockups/review-detail.html)
 
 ## 메모 · 끊긴 연결
-- 현재 모든 단계의 mockup이 **미정(TBD)**. 디자인 시스템과 mockup이 추가되면 각 단계의 시각화를 연결하고 인덱스(`README.md`)를 갱신해야 한다.
+- 모든 단계가 [review-detail](../mockups/review-detail.html) 한 화면의 인지 순서 레이어(요약→결론→논리→관점·근거→공백→액션)로 시각화된다 — 이 여정이 곧 메인 화면의 세로 흐름이다.
+- 끊긴 연결 없음. mockup·디자인 시스템 모두 존재하며 인덱스([README.md](./README.md)·[../mockups/README.md](../mockups/README.md))에 연결됨.

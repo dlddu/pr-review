@@ -16,27 +16,28 @@
 - **사용자**: 특정 슬라이스(작업 유형/작성자/저장소)의 데이터가 부족하다는 신호를 받는다.
 - **시스템**: 누적 데이터가 임계치 미만이면 리뷰 신뢰도가 낮아질 수 있음을 알린다.
 - **관련 PRD/AC**: PRD-4 AC4-4
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [knowledge-augment · 부족 감지 콜아웃](../mockups/knowledge-augment.html)
 
 ### S2: 보강 제안 확인
 - **사용자**: 어떤 데이터를 어떻게 보강하면 되는지 제안을 검토한다.
 - **시스템**: 부족한 슬라이스에 대해 추가할 데이터를 구체적으로 제안한다.
 - **관련 PRD/AC**: PRD-4 AC4-4
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [knowledge-augment · 보강 제안 목록](../mockups/knowledge-augment.html)
 
 ### S3: 지식 입력·축적
 - **사용자**: 작업 유형별 기준·관용 범위, 작성자 성향·신뢰도, 저장소 컨벤션 등을 입력한다.
 - **시스템**: 입력된 지식을 메타데이터 키 아래에 누적 저장한다.
 - **관련 PRD/AC**: PRD-4 AC4-1·AC4-2·AC4-3
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [knowledge-augment · 지식 입력 폼(키 기준)](../mockups/knowledge-augment.html)
 
 ### S4: 품질 향상 확인
 - **사용자**: 보강된 지식이 다음 리뷰의 보정에 실제로 반영되는지 확인한다.
 - **시스템**: 조회된 지식을 논리 엔진의 주장 생성·관용 판단 입력으로 사용하고, 동일 인물의 서로 다른 표기를 같은 키로 정규화해 일관되게 적용한다.
 - **관련 PRD/AC**: PRD-4 AC4-5, PRD-1 AC1-4
 - **분기**: 보강 후 → [J3: 맥락 적응형 리뷰 받기](./context-adaptive-review.md)의 S3가 더 풍부한 재료로 동작
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [knowledge-augment · 적용 before/after·키 정규화](../mockups/knowledge-augment.html)
 
 ## 메모 · 끊긴 연결
-- 현재 모든 단계의 mockup이 **미정(TBD)**.
+- 4개 단계 전부 [knowledge-augment](../mockups/knowledge-augment.html) 한 화면(부족 감지→제안→입력→적용 확인)에서 시각화된다. 이 화면은 다른 화면들과 달리 처음 보는 저장소·작성자 시나리오(PR #208)를 쓴다.
 - 이 여정은 J3(맥락 적응형 리뷰)의 보정 품질을 끌어올리는 입력 역할을 한다. 두 여정은 V3↔V4 관계(축적된 지식이 보정 재료가 됨)를 사용자 흐름으로 구현한 것이다.
+- 끊긴 연결 없음.

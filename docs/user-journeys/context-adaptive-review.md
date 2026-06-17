@@ -16,26 +16,27 @@
 - **사용자**: 이 PR의 작업 유형·작성자·저장소가 무엇으로 식별됐는지 확인한다.
 - **시스템**: 작업 유형을 분류하고, 작성자를 식별하며(봇이면 실제 유저 추정+근거), 저장소를 식별한다.
 - **관련 PRD/AC**: PRD-1 AC1-1·AC1-2·AC1-3
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [calibration · 레이어 1 메타데이터 추출](../mockups/calibration.html)
 
 ### S2: 컨텍스트 수집 확인
 - **사용자**: 의도·관련 이슈·관련 스레드·변경 규모(LOC)·일정이 어떻게 수집됐는지 확인한다.
 - **시스템**: 컨텍스트를 수집하고, optional 항목(이슈·스레드)의 부재는 "없음"으로 명시한다.
 - **관련 PRD/AC**: PRD-2 AC2-1 ~ AC2-6
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [calibration · 레이어 2 컨텍스트 수집(없음 처리)](../mockups/calibration.html)
 
 ### S3: 보정된 관점 적용
 - **사용자**: 메타데이터·컨텍스트에 따라 어떤 평가 관점이 선택적으로 적용됐는지 본다.
 - **시스템**: 관점을 PR에 선택 적용하고, 지식 베이스의 누적 지식을 보정 입력으로 반영한다.
 - **관련 PRD/AC**: PRD-3 AC3-3, PRD-4 AC4-5
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [calibration · 레이어 3 적용 관점·사유](../mockups/calibration.html)
 
 ### S4: 맥락 반영 결과 확인
 - **사용자**: 보정 결과가 요약·결론에 실제로 드러나는지 확인한다. (예: "리팩토링이므로 동작 변경 없음을 우선 점검")
 - **시스템**: 맥락 보정이 반영된 결론을 생성하고, 요약에 핵심 메타데이터/컨텍스트를 노출한다.
 - **관련 PRD/AC**: PRD-5 AC5-1, PRD-7 AC7-3
-- **시각화 (mockup)**: 🔲 TBD
+- **시각화 (mockup)**: ✅ [review-detail · 우측 레일(보정 요약)·본문 전체](../mockups/review-detail.html)
 
 ## 메모 · 끊긴 연결
-- 현재 모든 단계의 mockup이 **미정(TBD)**.
-- 이 여정은 지식이 부족한 슬라이스를 만나면 [J4: 부족한 메타데이터 지식 보강](./metadata-knowledge-augment.md)으로 이어질 수 있다(S3에서 보정 재료가 빈약할 때).
+- S1~S3(메타데이터·컨텍스트·관점 적용)은 [calibration](../mockups/calibration.html)에서, S4(적응된 결과 소비)는 [review-detail](../mockups/review-detail.html)의 우측 보정 레일과 본문에서 시각화된다.
+- 이 여정은 지식이 부족한 슬라이스를 만나면 [J4: 부족한 메타데이터 지식 보강](./metadata-knowledge-augment.md)으로 이어질 수 있다(S3에서 보정 재료가 빈약할 때). 그 보강 흐름은 [knowledge-augment](../mockups/knowledge-augment.html)에서 시각화된다.
+- 끊긴 연결 없음.

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>보정 근거 · 리뷰 렌즈(Lens)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;450;500;600;700&display=swap">
+<!-- 디자인 시스템 토큰 인라인 (정식 소스: ../design-system/tokens.css) -->
+<style>
+/* =============================================================
+   리뷰 렌즈(Lens) · 디자인 시스템 — tokens.css
+   디자인 토큰의 정식 소스(source of record). 각 mockup은 이 내용을 인라인 임베드한다
+   (뷰어·단일 파일에서도 스타일이 깨지지 않도록). 토큰을 바꾸면 mockup에 다시 인라인할 것.
+
+   정체성: "추론을 디버깅하는 제도(製圖) 도구".
+   - 차가운 종이 위의 페트롤 잉크 + 단 하나의 청록 신호색.
+   - 모노스페이스는 장식이 아니라 데이터(주장/근거 식별자, 키, LOC)다.
+   - 시그니처 = 인지순서를 깊이로 보여주는 좌측 depth-spine.
+   ============================================================= */
+
+:root {
+  /* --- color tokens --- */
+  --paper:        #E7EBEC;  /* 앱 배경: 차가운 회청 종이 */
+  --surface:      #FBFCFC;  /* 카드/표면 */
+  --surface-2:    #F1F4F4;  /* 안쪽 표면, 코드/근거 영역 */
+  --ink:          #14242B;  /* 본문·구조 (딥 페트롤, 순흑 아님) */
+  --ink-soft:     #51646C;  /* 보조 텍스트 */
+  --ink-faint:    #8A989E;  /* 가장 약한 텍스트/캡션 */
+  --line:         #D3DADC;  /* 헤어라인 */
+  --line-strong:  #B7C1C4;  /* 강조 경계 */
+
+  --accent:       #0B6E6B;  /* 신호색: 청록 — "지금 초점/검증 지점" */
+  --accent-press: #095754;
+  --accent-soft:  #DCEBEA;  /* 청록 배경틴트 */
+
+  --ok:           #2F6E4F;  /* 검증됨/신뢰 (차분한 녹) */
+  --ok-soft:      #E0EDE6;
+
+  --gap:          #9A6B12;  /* 공백: 오류 아님, "보완 초대" (오커) */
+  --gap-soft:     #F0E7D2;
+
+  /* 공백 3분류 — 행위 / 정보 / 관점 (서로 구분되되 조용하게) */
+  --cat-action:   #8A4B2B;  /* 행위 (act) — 흙빛 */
+  --cat-action-soft: #EFE2D9;
+  --cat-info:     #2C5A86;  /* 정보 (info) — 청 */
+  --cat-info-soft:   #DEE8F1;
+  --cat-view:     #5A4B86;  /* 관점 (view) — 보라 */
+  --cat-view-soft:   #E5E1F1;
+
+  /* --- type tokens --- */
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --t-eyebrow: 0.72rem;
+  --t-cap:     0.78rem;
+  --t-body:    0.94rem;
+  --t-h3:      1.06rem;
+  --t-h2:      1.4rem;
+  --t-h1:      2.05rem;
+  --t-display: 2.7rem;
+
+  /* --- space / radius / shadow --- */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --r:   4px;   /* 기본 모서리 — 살짝만 (제도 도구 느낌) */
+  --r-lg: 8px;
+  --shadow: 0 1px 2px rgba(20,36,43,.06), 0 6px 18px -10px rgba(20,36,43,.22);
+  --shadow-soft: 0 1px 0 var(--line);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  font-weight: 450;
+  letter-spacing: 0.005em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+
+/* monospace data unit: claim/evidence ids, keys, LOC */
+.mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
+
+/* eyebrow: condensed, tracked, the "instrument labeling" voice */
+.eyebrow {
+  font-family: var(--font-cond);
+  font-weight: 600;
+  font-size: var(--t-eyebrow);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.muted { color: var(--ink-soft); }
+.faint { color: var(--ink-faint); }
+
+/* =============================================================
+   C-appbar — 상단 바
+   ============================================================= */
+.appbar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: var(--s4);
+  height: 56px; padding: 0 var(--s5);
+  background: color-mix(in srgb, var(--paper) 86%, white);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 9px; font-family: var(--font-cond); font-weight: 700; letter-spacing: 0.02em; }
+.brand-mark {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--ink);
+  position: relative; flex: none;
+}
+.brand-mark::after { /* lens focus dot */
+  content: ""; position: absolute; inset: 4px;
+  border-radius: 50%; border: 1.5px solid var(--accent);
+}
+.appbar nav { display: flex; gap: var(--s1); margin-left: var(--s4); }
+.appbar nav a {
+  font-family: var(--font-cond); font-size: 0.86rem; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--ink-soft);
+  padding: 6px 10px; border-radius: var(--r);
+}
+.appbar nav a:hover { background: var(--surface-2); text-decoration: none; color: var(--ink); }
+.appbar nav a[aria-current="page"] { color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.appbar .spacer { flex: 1; }
+
+/* page shell */
+.shell { max-width: 1160px; margin: 0 auto; padding: var(--s6) var(--s5) var(--s8); }
+.lede { max-width: 70ch; }
+
+/* =============================================================
+   C-chip — 작업유형/저장소/상태 칩
+   ============================================================= */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-cond); font-weight: 600; font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  padding: 3px 9px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  color: var(--ink); white-space: nowrap;
+}
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); }
+.chip--accent { background: var(--accent-soft); border-color: transparent; color: var(--accent-press); }
+.chip--ok { background: var(--ok-soft); border-color: transparent; color: var(--ok); }
+.chip--gap { background: var(--gap-soft); border-color: transparent; color: var(--gap); }
+.chip--ghost { background: transparent; }
+.chip .mono { font-size: 0.74rem; }
+
+/* =============================================================
+   C-pr-header — PR 메타데이터 헤더
+   ============================================================= */
+.pr-header { margin-bottom: var(--s6); }
+.pr-title {
+  font-family: var(--font-sans); font-weight: 600;
+  font-size: var(--t-h1); line-height: 1.12; letter-spacing: -0.02em;
+  margin: var(--s2) 0 var(--s3);
+}
+.pr-title .mono { font-size: 0.62em; color: var(--ink-faint); font-weight: 500; }
+.pr-meta { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s3); align-items: center; }
+.pr-meta .sep { color: var(--line-strong); }
+.bot-note {
+  font-size: var(--t-cap); color: var(--ink-soft);
+  background: var(--surface); border: 1px dashed var(--line-strong);
+  border-radius: var(--r); padding: 2px 8px;
+}
+
+/* =============================================================
+   layout: review reading column + depth spine + right rail
+   ============================================================= */
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr 296px;
+  gap: var(--s6);
+  align-items: start;
+}
+.review-col { min-width: 0; }
+
+/* C-depth-spine — 시그니처: 인지순서를 깊이로
+   연속 레일 + 각 인지 레이어에 붙는 노드(자동 정렬) */
+.with-spine { position: relative; padding-left: 58px; }
+.with-spine::before {
+  content: ""; position: absolute; left: 21px; top: 10px; bottom: 10px; width: 2px;
+  background: linear-gradient(var(--ink) 0 0) no-repeat,
+              linear-gradient(var(--line-strong), var(--line));
+  background-size: 100% var(--spine-progress, 0%), 100% 100%;
+}
+.layer__node {
+  position: absolute; left: -58px; top: -2px;
+  width: 28px; height: 28px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--paper);
+  border: 2px solid var(--line-strong);
+  font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600;
+  color: var(--ink-faint); z-index: 1;
+}
+.layer__node[data-state="done"] { border-color: var(--ink); color: var(--ink); background: var(--surface); }
+.layer__node[data-state="active"] {
+  border-color: var(--accent); color: var(--accent-press); background: var(--surface);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.layer__node[data-state="muted"] { opacity: .5; }
+
+/* =============================================================
+   C-section — 인지순서 섹션 (접힘/펼침)
+   ============================================================= */
+.layer { position: relative; margin-bottom: var(--s5); }
+.layer__head {
+  display: flex; align-items: baseline; gap: var(--s3);
+  cursor: default;
+}
+.layer__ord {
+  font-family: var(--font-cond); font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 0.1em; color: var(--accent-press);
+}
+.layer__title { font-size: var(--t-h3); font-weight: 600; }
+.layer__hint { margin-left: auto; font-size: var(--t-cap); color: var(--ink-faint); }
+.layer__body { margin-top: var(--s3); }
+
+/* collapsible: native details, restyled */
+details.fold { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); overflow: hidden; }
+details.fold > summary {
+  list-style: none; cursor: pointer; padding: var(--s3) var(--s4);
+  display: flex; align-items: center; gap: var(--s3);
+  font-weight: 500;
+}
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary .twist {
+  width: 16px; height: 16px; flex: none; transition: transform .18s ease;
+  color: var(--ink-faint);
+}
+details.fold[open] > summary .twist { transform: rotate(90deg); }
+details.fold > summary:hover { background: var(--surface-2); }
+details.fold > summary .tag-depth { margin-left: auto; }
+details.fold .fold__inner { padding: var(--s4); padding-top: var(--s2); border-top: 1px solid var(--line); }
+
+/* card */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); padding: var(--s5);
+}
+.card--quiet { background: var(--surface-2); }
+.card + .card { margin-top: var(--s3); }
+
+/* =============================================================
+   C-conclusion — 결론 블록
+   ============================================================= */
+.verdict {
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(90deg, var(--accent-soft), var(--surface) 60%);
+  border-radius: var(--r);
+  padding: var(--s4) var(--s5);
+}
+.verdict__label { display: flex; align-items: center; gap: var(--s2); }
+.verdict__text { font-size: 1.12rem; font-weight: 500; margin-top: var(--s2); line-height: 1.45; }
+.verdict__text strong { font-weight: 600; }
+
+/* =============================================================
+   C-claim / C-evidence / C-perspective-tag — 주장·근거·관점
+   ============================================================= */
+.claim {
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface); overflow: hidden;
+}
+.claim + .claim { margin-top: var(--s3); }
+.claim__head { display: flex; align-items: flex-start; gap: var(--s3); padding: var(--s4); cursor: pointer; }
+.claim__head:hover { background: var(--surface-2); }
+.claim__id {
+  font-family: var(--font-mono); font-weight: 600; font-size: 0.8rem;
+  color: var(--accent-press); background: var(--accent-soft);
+  padding: 2px 7px; border-radius: var(--r); flex: none; margin-top: 1px;
+}
+.claim__id--gap { color: var(--gap); background: var(--gap-soft); }
+.claim__statement { flex: 1; font-weight: 500; }
+.claim__twist { width: 16px; height: 16px; flex: none; color: var(--ink-faint); transition: transform .18s ease; margin-top: 2px; }
+details[open] > .claim__head .claim__twist { transform: rotate(90deg); }
+.claim__body { padding: 0 var(--s4) var(--s4) calc(var(--s4) + 40px); border-top: 1px solid var(--line); padding-top: var(--s3); }
+
+/* substep — 인지순서 4(관점·근거)는 3(주장) 안으로 한 단계 더 내려간 깊이임을 표시 */
+.substep { display: flex; align-items: center; gap: 8px; margin-bottom: var(--s2); font-size: var(--t-cap); color: var(--ink-soft); }
+.substep__n {
+  flex: none; width: 19px; height: 19px; border-radius: 50%;
+  border: 1.5px dashed var(--accent); color: var(--accent-press);
+  font-family: var(--font-mono); font-size: 0.64rem; font-weight: 600;
+  display: grid; place-items: center; background: var(--surface);
+}
+.substep b { color: var(--ink); font-weight: 600; }
+
+.evidence { display: flex; gap: var(--s3); padding: var(--s2) 0; }
+.evidence + .evidence { border-top: 1px dashed var(--line); }
+.evidence__id { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); flex: none; padding-top: 1px; }
+.evidence__text { flex: 1; font-size: 0.9rem; }
+.evidence__text .src { color: var(--ink-faint); font-size: 0.82rem; }
+
+.ptag {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-cond); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.03em;
+  padding: 2px 8px; border-radius: var(--r);
+  background: var(--cat-view-soft); color: var(--cat-view);
+  border: 1px solid transparent;
+}
+.ptag::before { content: "◭"; font-size: 0.7em; }
+.ptag--link { cursor: pointer; }
+.ptag--link:hover { border-color: var(--cat-view); }
+
+.trace {
+  margin-top: var(--s3); font-size: var(--t-cap); color: var(--ink-soft);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.trace .arrow { color: var(--ink-faint); }
+
+/* chain connector between claims → conclusion */
+.chain__rule {
+  margin: var(--s3) 0 var(--s3) 20px; padding-left: var(--s4);
+  border-left: 2px dotted var(--line-strong);
+  font-size: var(--t-cap); color: var(--ink-faint);
+}
+
+/* =============================================================
+   C-gap-card / C-cat-tag — 공백 + 행위/정보/관점 제안
+   ============================================================= */
+.gap {
+  border: 1px solid var(--line); border-left: 3px solid var(--gap);
+  border-radius: var(--r-lg); background: var(--surface);
+  padding: var(--s4);
+}
+.gap + .gap { margin-top: var(--s3); }
+.gap__top { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; }
+.gap__where { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); }
+.gap__kind { font-weight: 500; margin-top: var(--s2); }
+.gap__suggest {
+  margin-top: var(--s3); padding: var(--s3); border-radius: var(--r);
+  background: var(--surface-2); display: flex; gap: var(--s3); align-items: flex-start;
+}
+.gap__suggest .need { font-size: 0.9rem; }
+.gap__suggest .need b { font-weight: 600; }
+
+.cat {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-cond); font-weight: 700; font-size: 0.74rem; letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 9px; border-radius: var(--r);
+}
+.cat--action { background: var(--cat-action-soft); color: var(--cat-action); }
+.cat--info   { background: var(--cat-info-soft);   color: var(--cat-info); }
+.cat--view   { background: var(--cat-view-soft);   color: var(--cat-view); }
+.cat__glyph { font-size: 0.9em; }
+
+/* =============================================================
+   C-btn — 버튼
+   ============================================================= */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-sans); font-weight: 600; font-size: 0.9rem;
+  padding: 9px 16px; border-radius: var(--r); cursor: pointer;
+  border: 1px solid transparent; transition: background .15s, border-color .15s;
+}
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-press); text-decoration: none; }
+.btn--ghost { background: var(--surface); color: var(--ink); border-color: var(--line-strong); }
+.btn--ghost:hover { background: var(--surface-2); text-decoration: none; }
+.btn--quiet { background: transparent; color: var(--ink-soft); padding: 9px 12px; }
+.btn--quiet:hover { color: var(--ink); background: var(--surface-2); text-decoration: none; }
+.btn--sm { padding: 5px 11px; font-size: 0.82rem; }
+
+/* =============================================================
+   C-action-bar — 재리뷰/종결 + 머지 금지 경계
+   ============================================================= */
+.actionbar {
+  position: relative; margin-top: var(--s6);
+  background: color-mix(in srgb, var(--surface) 92%, white);
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  padding: var(--s4) var(--s5);
+  display: flex; align-items: center; gap: var(--s4); flex-wrap: wrap;
+}
+.actionbar .grow { flex: 1; }
+
+/* C-no-merge-boundary — 명시적 경계 라인 */
+.boundary {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--t-cap); color: var(--ink-soft);
+  font-family: var(--font-mono); letter-spacing: -0.01em;
+}
+.boundary__glyph { color: var(--gap); }
+
+/* =============================================================
+   C-rail — 우측 보정 요약
+   ============================================================= */
+.rail { position: sticky; top: 72px; display: grid; gap: var(--s4); }
+.rail__card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s4); }
+.rail__card h3 { font-size: 0.92rem; }
+.rail__title { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--s3); }
+
+/* C-kv — 키-값 목록 (메타데이터/컨텍스트) */
+.kv { display: grid; gap: var(--s2); }
+.kv__row { display: grid; grid-template-columns: 92px 1fr; gap: var(--s3); align-items: baseline; }
+.kv__k { font-family: var(--font-cond); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.04em; color: var(--ink-soft); text-transform: uppercase; }
+.kv__v { font-size: 0.9rem; }
+.kv__v .none { color: var(--ink-faint); font-style: italic; }
+.kv__v .mono { font-size: 0.82rem; }
+
+/* =============================================================
+   C-callout — 부족 지식/경고/안내
+   ============================================================= */
+.callout {
+  border-radius: var(--r-lg); padding: var(--s4) var(--s5);
+  display: flex; gap: var(--s3); align-items: flex-start;
+}
+.callout--gap { background: var(--gap-soft); color: var(--ink); }
+.callout--info { background: var(--accent-soft); color: var(--ink); }
+.callout--ok { background: var(--ok-soft); color: var(--ink); }
+.callout__glyph { font-size: 1.1rem; line-height: 1.3; flex: none; }
+.callout--gap .callout__glyph { color: var(--gap); }
+.callout--info .callout__glyph { color: var(--accent-press); }
+.callout--ok .callout__glyph { color: var(--ok); }
+.callout h3 { font-size: var(--t-h3); margin-bottom: 4px; }
+
+/* =============================================================
+   C-field — 지식 입력 필드
+   ============================================================= */
+.field { margin-bottom: var(--s4); }
+.field__label { display: block; font-family: var(--font-cond); font-weight: 600; font-size: 0.84rem; letter-spacing: 0.03em; margin-bottom: 6px; }
+.field__hint { font-size: var(--t-cap); color: var(--ink-faint); margin: 2px 0 8px; }
+.field input[type="text"], .field textarea, .field select {
+  width: 100%; font-family: var(--font-sans); font-size: 0.92rem; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r);
+  padding: 9px 11px; resize: vertical;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.field .mono-in { font-family: var(--font-mono); }
+.tagline { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+
+/* =============================================================
+   C-diff — 재리뷰 before/after
+   ============================================================= */
+.diff { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.diff__col { border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.diff__head { font-family: var(--font-cond); font-weight: 700; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px var(--s4); border-bottom: 1px solid var(--line); }
+.diff__col--before .diff__head { background: var(--surface-2); color: var(--ink-soft); }
+.diff__col--after  .diff__head { background: var(--ok-soft); color: var(--ok); }
+.diff__body { padding: var(--s4); font-size: 0.9rem; }
+.delta { font-family: var(--font-mono); font-size: 0.82rem; }
+.delta--down { color: var(--ok); }
+
+/* =============================================================
+   gallery (index.html) — 도구용, 제품 화면 아님
+   ============================================================= */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--s4); }
+.gcard { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s5); transition: border-color .15s, box-shadow .15s; }
+.gcard:hover { border-color: var(--accent); box-shadow: var(--shadow); text-decoration: none; }
+.gcard h3 { font-size: var(--t-h3); margin: var(--s3) 0 6px; color: var(--ink); }
+.gcard p { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+.gcard__map { margin-top: var(--s3); display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* utilities */
+.stack { display: grid; gap: var(--s4); }
+.row { display: flex; gap: var(--s3); align-items: center; flex-wrap: wrap; }
+.between { justify-content: space-between; }
+.divider { height: 1px; background: var(--line); border: 0; margin: var(--s5) 0; }
+.note { font-size: var(--t-cap); color: var(--ink-faint); }
+
+/* =============================================================
+   responsive
+   ============================================================= */
+@media (max-width: 920px) {
+  .review-grid { grid-template-columns: 1fr; }
+  .rail { position: static; }
+  .diff { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .shell { padding: var(--s5) var(--s4) var(--s7); }
+  .with-spine { padding-left: 42px; }
+  .with-spine::before { left: 15px; }
+  .layer__node { left: -42px; width: 24px; height: 24px; font-size: 0.66rem; }
+  .pr-title { font-size: 1.6rem; }
+  .appbar { padding: 0 var(--s4); gap: var(--s2); }
+  .appbar nav { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* focus visibility (quality floor) */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="brand"><span class="brand-mark"></span> 리뷰 렌즈</div>
+  <nav>
+    <a href="review-detail.html">리뷰 상세</a>
+    <a href="calibration.html" aria-current="page">보정 근거</a>
+    <a href="gap-fill.html">공백 보완</a>
+    <a href="knowledge-augment.html">지식 보강</a>
+  </nav>
+  <span class="spacer"></span>
+  <span class="chip chip--ghost"><span class="mono">PR #142</span></span>
+</header>
+
+<main class="shell">
+  <div class="pr-header lede">
+    <span class="eyebrow">보정 근거 · 이 리뷰는 무엇에 맞춰졌는가</span>
+    <h1 class="pr-title">같은 코드라도 맥락에 맞춰 평가합니다</h1>
+    <p class="muted" style="margin:var(--s2) 0 0">메타데이터(작업유형·작성자·저장소)와 컨텍스트(의도·이슈·스레드·LOC·일정)가 평가 보정의 재료입니다.
+    아래는 <span class="mono">PR #142</span>가 어떻게 식별·수집되어 어떤 관점으로 이어졌는지의 전체 내역입니다.</p>
+  </div>
+
+  <div class="stack" style="gap:var(--s6)">
+
+    <!-- S1: 메타데이터 추출 (PRD-1 · AC1-1~1-3) -->
+    <section>
+      <div class="row between" style="margin-bottom:var(--s3)">
+        <h2 style="font-size:var(--t-h2)">1 · 메타데이터 추출</h2>
+        <span class="eyebrow">지식 베이스 조회 키</span>
+      </div>
+      <div class="gallery" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+
+        <div class="card">
+          <div class="eyebrow">작업 유형</div>
+          <div class="row" style="margin:var(--s2) 0 var(--s3)">
+            <span class="chip"><span class="dot" style="background:var(--cat-action)"></span>리팩토링</span>
+            <span class="chip"><span class="dot" style="background:var(--cat-info)"></span>기능 추가</span>
+          </div>
+          <p class="note" style="margin:0">다중 분류. 불명확하면 <span class="mono">미분류</span>로 표시되어 공백 탐지 대상이 됩니다.</p>
+        </div>
+
+        <div class="card">
+          <div class="eyebrow">작성자 — 봇이면 실제 유저 추정</div>
+          <p style="margin:var(--s2) 0 var(--s2)"><span class="mono">lens-ci[bot]</span> <span class="muted">→</span> <b class="mono">@dlddu</b></p>
+          <div class="kv" style="font-size:0.86rem">
+            <div class="kv__row"><span class="kv__k">근거</span><span class="kv__v">커밋 author = <span class="mono">@dlddu</span></span></div>
+            <div class="kv__row"><span class="kv__k"></span><span class="kv__v">트리거 메타 = manual dispatch</span></div>
+            <div class="kv__row"><span class="kv__k"></span><span class="kv__v">이슈 <span class="mono">LEN-128</span> 담당자 일치</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="eyebrow">저장소</div>
+          <p style="margin:var(--s2) 0 var(--s3)"><b class="mono">dlddu/lens-core</b></p>
+          <p class="note" style="margin:0">저장소 식별자가 지식 베이스의 저장소 키와 일치합니다.</p>
+        </div>
+      </div>
+
+      <div class="callout callout--info" style="margin-top:var(--s4)">
+        <span class="callout__glyph">⊜</span>
+        <div><b>키 정규화</b> — 같은 인물의 봇 PR과 직접 PR을 동일 키 <span class="mono">author/@dlddu</span>로 통일합니다. 표기가 달라도 한 사람의 지식으로 누적됩니다.</div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- S2: 컨텍스트 수집 (PRD-2 · AC2-1~2-6) -->
+    <section>
+      <div class="row between" style="margin-bottom:var(--s3)">
+        <h2 style="font-size:var(--t-h2)">2 · 컨텍스트 수집</h2>
+        <span class="eyebrow">없는 항목은 “없음”으로 명시 — 오류 아님</span>
+      </div>
+      <div class="card">
+        <div class="kv">
+          <div class="kv__row"><span class="kv__k">의도</span><span class="kv__v">주장·근거를 별도 식별자로 저장하고 의존 체인을 표현한다 <span class="chip chip--ok chip--sm"><span class="mono">확정</span></span></span></div>
+          <div class="kv__row"><span class="kv__k">관련 이슈</span><span class="kv__v"><span class="mono">LEN-128</span> (Linear) — 연결됨 · 마감 6/20</span></div>
+          <div class="kv__row"><span class="kv__k">관련 스레드</span><span class="kv__v">Slack <span class="mono">#eng-review</span> — 연결됨</span></div>
+          <div class="kv__row"><span class="kv__k">변경 규모</span><span class="kv__v"><span class="mono">+312 / −96</span> LOC <span class="muted">— 중간 규모, 관용 판단 입력</span></span></div>
+          <div class="kv__row"><span class="kv__k">일정</span><span class="kv__v">릴리스 6/21 — 데드라인 임박, 관용 범위 보정 입력</span></div>
+        </div>
+        <hr class="divider" style="margin:var(--s4) 0">
+        <p class="note" style="margin:0"><b>optional 항목 부재 처리 예시</b> &nbsp; 관련 스레드가 없었다면 <span class="kv__v"><span class="none">관련 스레드 없음</span></span>으로 기록되고, 리뷰는 끝까지 진행됩니다. 부재는 결론을 막는 오류가 아니라 공백 탐지가 판단할 명시적 상태입니다.</p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- S3: 보정된 관점 적용 (PRD-3 AC3-3 · PRD-4 AC4-5) -->
+    <section>
+      <div class="row between" style="margin-bottom:var(--s3)">
+        <h2 style="font-size:var(--t-h2)">3 · 보정된 관점 적용</h2>
+        <span class="eyebrow">메타데이터·컨텍스트 → 관점 선택</span>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow" style="margin-bottom:var(--s3)">이 PR에 적용된 관점 (논리 엔진의 주장 출처)</div>
+        <div class="stack" style="gap:var(--s3)">
+          <div class="row between" style="align-items:flex-start">
+            <div><span class="ptag">데이터 모델 정합성</span></div>
+            <span class="note" style="text-align:right;max-width:62%">적용 이유: 스키마 변경 PR — <span class="mono">C1</span> 생성</span>
+          </div>
+          <div class="row between" style="align-items:flex-start">
+            <div><span class="ptag">논리 구조 건전성</span></div>
+            <span class="note" style="text-align:right;max-width:62%">적용 이유: 체인 표현 신규 — <span class="mono">C2</span> 생성</span>
+          </div>
+          <div class="row between" style="align-items:flex-start">
+            <div><span class="ptag">동작 보존 (리팩토링)</span></div>
+            <span class="note" style="text-align:right;max-width:62%">적용 이유: 작업유형 = 리팩토링 → 지식 베이스가 “동작 변경 0” 기준 강화 — <span class="mono">C3</span> 생성</span>
+          </div>
+          <div class="row between" style="align-items:flex-start">
+            <div><span class="ptag">작성자 신뢰도</span></div>
+            <span class="note" style="text-align:right;max-width:62%">적용 이유: 작성자 프로파일 신뢰도 상위 → 관용 확대 — <span class="mono">C4</span> 생성</span>
+          </div>
+          <hr class="divider" style="margin:var(--s2) 0">
+          <div class="row between" style="align-items:flex-start">
+            <div><span class="ptag" style="opacity:.6;background:var(--surface-2);color:var(--ink-faint)">성능</span> <span class="chip chip--gap chip--sm"><span class="mono">미적용</span></span></div>
+            <span class="note" style="text-align:right;max-width:62%">후보지만 미적용 → 공백 <span class="mono">G2</span>로 보완 제안됨. <a href="gap-fill.html">추가 적용 →</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout--info" style="margin-top:var(--s4)">
+        <span class="callout__glyph">◎</span>
+        <div><b>지식이 보정 재료로 들어옴</b> — 작업유형별 기준(리팩토링: 동작 변경 0), 작성자 프로파일(신뢰도·테스트 동반 경향), 저장소 컨벤션이
+        관점 선택과 관용 판단에 반영됩니다. 슬라이스 데이터가 부족하면 먼저 <a href="knowledge-augment.html">지식 보강</a>이 제안됩니다.</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="actionbar" style="margin-top:var(--s7)">
+    <a class="btn btn--ghost" href="review-detail.html">← 리뷰 상세로</a>
+    <span class="grow"></span>
+    <span class="boundary"><span class="boundary__glyph">⊘</span> 보정은 평가 방식만 바꿉니다 — 코드는 건드리지 않습니다</span>
+  </div>
+</main>
+</body>
+</html>

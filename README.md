@@ -31,12 +31,22 @@ docs/
 │   ├── logic-engine.md
 │   ├── gap-detection.md
 │   └── presentation.md
-└── user-journeys/      # 사용자 여정 (J1~J4, 가치 → 여정 → mockup)
-    ├── README.md                     # 여정 인덱스 (여정↔가치↔mockup 단일 소스)
-    ├── review-consume-trust.md       # J1: 자동 리뷰 소비 → 신뢰 검증 (V2·V1)
-    ├── gap-fill-rereview.md          # J2: 논리 공백 보완 → 재리뷰 (V5·V1)
-    ├── context-adaptive-review.md    # J3: 맥락 적응형 리뷰 받기 (V3)
-    └── metadata-knowledge-augment.md # J4: 부족한 메타데이터 지식 보강 (V4)
+├── user-journeys/      # 사용자 여정 (J1~J4, 가치 → 여정 → mockup)
+│   ├── README.md                     # 여정 인덱스 (여정↔가치↔mockup 단일 소스)
+│   ├── review-consume-trust.md       # J1: 자동 리뷰 소비 → 신뢰 검증 (V2·V1)
+│   ├── gap-fill-rereview.md          # J2: 논리 공백 보완 → 재리뷰 (V5·V1)
+│   ├── context-adaptive-review.md    # J3: 맥락 적응형 리뷰 받기 (V3)
+│   └── metadata-knowledge-augment.md # J4: 부족한 메타데이터 지식 보강 (V4)
+├── design-system/      # 디자인 시스템 (모든 mockup이 공유하는 단일 소스)
+│   ├── README.md           # 토큰·컴포넌트(C-*)·패턴(P-*) 문서
+│   └── tokens.css          # 시각 토큰·컴포넌트 정의 (모든 화면이 link)
+└── mockups/            # 실제 화면 목업 (4개 화면이 18개 여정 단계를 덮음)
+    ├── README.md                # mockup 인덱스 (화면↔여정·단계↔가치↔컴포넌트)
+    ├── index.html               # 갤러리 (도구 — 제품 화면 아님)
+    ├── review-detail.html       # 화면 1: 리뷰 상세 (J1 전체·J2 S1·J3 S4)
+    ├── calibration.html         # 화면 2: 보정 근거 (J3 S1~S3)
+    ├── gap-fill.html            # 화면 3: 공백 보완 → 재리뷰 (J2 S2~S5)
+    └── knowledge-augment.html   # 화면 4: 지식 보강 (J4 S1~S4)
 ```
 
 ## 제품 가치 (요약)
@@ -55,12 +65,12 @@ docs/
 
 | | 여정 | 달성 가치 | mockup |
 |---|------|-----------|--------|
-| J1 | 자동 리뷰 소비 → 신뢰 검증 | V2, V1 | 🔲 TBD |
-| J2 | 논리 공백 보완 → 재리뷰 | V5, V1 | 🔲 TBD |
-| J3 | 맥락 적응형 리뷰 받기 | V3 | 🔲 TBD |
-| J4 | 부족한 메타데이터 지식 보강 | V4 | 🔲 TBD |
+| J1 | 자동 리뷰 소비 → 신뢰 검증 | V2, V1 | ✅ [review-detail](docs/mockups/review-detail.html) |
+| J2 | 논리 공백 보완 → 재리뷰 | V5, V1 | ✅ [review-detail](docs/mockups/review-detail.html) · [gap-fill](docs/mockups/gap-fill.html) |
+| J3 | 맥락 적응형 리뷰 받기 | V3 | ✅ [calibration](docs/mockups/calibration.html) · [review-detail](docs/mockups/review-detail.html) |
+| J4 | 부족한 메타데이터 지식 보강 | V4 | ✅ [knowledge-augment](docs/mockups/knowledge-augment.html) |
 
-> mockup·디자인 시스템은 아직 없음 — 모든 여정 단계가 시각화 누락(현 단계에서 의도됨). 디자인 시스템 정의 → mockup 작성 → 인덱스 연결 순서로 채운다.
+> 실제로 보게 될 화면 기준 4개 목업이 18개 여정 단계를 모두 덮는다. 화면↔단계↔가치↔컴포넌트 매핑은 [`docs/mockups/README.md`](docs/mockups/README.md), 공유 디자인 시스템은 [`docs/design-system/`](docs/design-system/). 브라우저로 [`docs/mockups/index.html`](docs/mockups/index.html)을 열면 갤러리로 모아 볼 수 있다.
 
 ## 리뷰 결과 인지 순서
 
