@@ -53,6 +53,6 @@ J1 리뷰 소비 → 신뢰 검증 ──(논리 공백 발견 시)──▶ J2 
 | J3 | S4 | ✅ [review-detail](../mockups/review-detail.html) (우측 레일·본문) |
 | J4 | S1~S4 | ✅ [knowledge-augment](../mockups/knowledge-augment.html) |
 
-→ **시각화 누락 단계 0개.** 18개 단계 전부 화면에 연결됨. 디자인 시스템(토큰/컴포넌트/패턴)은 [`../design-system/`](../design-system/)에 정의되어 모든 화면이 공유한다.
+→ **시각화 누락 단계 0개.** 18개 단계 전부 화면에 연결됨. 디자인 시스템 문서는 [`../design-system/`](../design-system/), 토큰 정식 소스는 [`../../frontend/src/styles/tokens.css`](../../frontend/src/styles/tokens.css)이며 모든 화면이 공유한다.
 
 > mockup이 추가/수정/제거될 때 이 표와 각 여정 문서의 단계별 시각화 줄, 그리고 [`../mockups/README.md`](../mockups/README.md)·[`../doc-tracker.md`](../doc-tracker.md)를 함께 갱신할 것. (인덱스 갱신 누락이 가장 흔한 실패 모드.)

@@ -1,0 +1,26 @@
+{
+  "name": "@lens/backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lens backend — mirrors the 7 PRD modules as a one-way pipeline (input → knowledge/perspective → engine → gap → presentation). Scaffold only; module bodies are stubs.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@lens/shared": "workspace:*",
+    "better-sqlite3": "^12.11.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.9.3",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  }
+}

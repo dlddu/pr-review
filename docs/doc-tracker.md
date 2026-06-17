@@ -12,7 +12,7 @@
 ### 프론트엔드 사슬 (가치 → 사용자 여정 → mockup ↔ 디자인 시스템)
 - 사용자 여정: **4개** (J1~J4, 가치 연결됨: 4개 / 미연결: 0개 — 5개 가치 모두 커버)
 - Mockup: **4개** (실제 화면 기준 — 18개 여정 단계 전부 덮음, 시각화 누락 0)
-- 디자인 시스템: **정의됨** (`design-system/tokens.css` 단일 소스 + 컴포넌트/패턴 문서)
+- 디자인 시스템: **정의됨** (토큰 정식 소스 `frontend/src/styles/tokens.css` + `design-system/` 컴포넌트/패턴 문서)
 - **건강 상태**: ✅ 건강함 — 여정↔가치 연결 완전, 18단계 전부 화면 연결, 모든 화면이 디자인 시스템 공유
 
 > 백엔드·프론트엔드 사슬 모두 끊어진 화살표가 없다. 프론트엔드 사슬은 4개 실제 화면 목업이 18개 여정 단계를 모두 시각화하고, 모든 화면이 단일 디자인 시스템(`design-system/`)을 공유한다. 화면↔단계↔가치↔컴포넌트 상세 매핑은 [`mockups/README.md`](./mockups/README.md), 여정 상세는 [`user-journeys/README.md`](./user-journeys/README.md) 참조.
@@ -110,6 +110,7 @@
 | 2026-06-17 | 상태 추적 문서 초기화 | — | 건강 상태 ✅ |
 | 2026-06-17 | 사용자 여정 J1~J4 추가(V1~V5 전체 커버), 여정 인덱스 생성 | 여정 0개 | 여정 4개(가치 연결 완전), mockup 0개 → 시각화 누락 18단계 수용 |
 | 2026-06-17 | 디자인 시스템(`design-system/tokens.css` + 문서) 정의, 실제 화면 기준 mockup 4종 작성, 여정·인덱스·README 연결 | mockup 0개, 디자인 시스템 미정의, 시각화 누락 18단계 | mockup 4개(18단계 전부 시각화), 디자인 시스템 정의됨, 프론트엔드 사슬 ✅ 건강 |
+| 2026-06-17 | 풀스택 골격 부트스트랩(pnpm 모노레포 `backend`·`frontend`·`packages/shared`; 7 PRD 모듈 스텁·4화면 라우트·C-* 카탈로그·33 AC `it.todo`·AC6-5 경계 가드/회귀 테스트·lint/typecheck/test/build·CI). 토큰 정식 소스를 `design-system/tokens.css`→`frontend/src/styles/tokens.css`로 이전하고 mockup·문서 참조 갱신 | 툴링 0건, 토큰 정식 소스 `design-system/tokens.css` | 풀스택 골격 존재(기능 코드 0), 토큰 정식 소스 `frontend/src/styles/tokens.css` |
 
 ---
 
