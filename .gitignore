@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+*.tsbuildinfo
+
+# test / coverage
+coverage/
+
+# local data (SQLite is the dev datastore)
+*.sqlite
+*.sqlite3
+*.db
+
+# vite
+.vite/
+*.timestamp-*.mjs
+
+# editor / OS
+.DS_Store
+*.local
+*.log

@@ -1,0 +1,32 @@
+{
+  "name": "lens",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lens — a personal tool that automates PR review while keeping its reasoning transparent and debuggable. Bootstrap skeleton (full-stack scaffold, no feature logic yet).",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "build": "pnpm -r build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "start": "pnpm --filter @lens/backend start",
+    "dev": "pnpm --filter @lens/frontend dev"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0",
+    "prettier": "^3.8.4",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.1",
+    "vitest": "^4.1.9"
+  }
+}

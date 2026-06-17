@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+pnpm-lock.yaml
+
+# Authored verbatim — the canonical design-token source. Do not reformat.
+frontend/src/styles/tokens.css
+
+# Mockups inline the tokens verbatim.
+docs/mockups/*.html

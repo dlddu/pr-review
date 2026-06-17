@@ -1,6 +1,6 @@
 # 리뷰 렌즈(Lens) 디자인 시스템
 
-모든 목업이 공유하는 시각 언어의 **정식 소스(source of record)**. 토큰·컴포넌트의 정의는 [`tokens.css`](./tokens.css) 한 파일에 모여 있다. 각 mockup은 뷰어·단일 파일에서도 스타일이 깨지지 않도록 이 토큰을 **인라인으로 임베드**한다. 따라서 토큰을 바꾸면 이 파일을 고친 뒤 **각 mockup에 다시 인라인**해야 한다(자동 반영 아님).
+모든 목업이 공유하는 시각 언어의 **문서**. 토큰·컴포넌트 정의의 **정식 소스(source of record)는 [`frontend/src/styles/tokens.css`](../../frontend/src/styles/tokens.css)** 한 파일이며(풀스택 골격 부트스트랩 때 `design-system/`에서 이전됨), 이 문서는 그 토큰·컴포넌트·패턴을 설명한다. 각 mockup은 뷰어·단일 파일에서도 스타일이 깨지지 않도록 이 토큰을 **인라인으로 임베드**한다. 따라서 토큰을 바꾸면 정식 소스를 고친 뒤 **각 mockup에 다시 인라인**해야 한다(자동 반영 아님).
 
 > 화면이 어떤 컴포넌트·패턴을 쓰는지는 [`../mockups/README.md`](../mockups/README.md)의 매핑 표 참조.
 
@@ -40,7 +40,7 @@
 
 ## 컴포넌트 (C-*)
 
-`tokens.css`에 클래스로 정의됨. 각 항목은 파일 내 `C-…` 주석으로 찾을 수 있다.
+정식 소스 [`frontend/src/styles/tokens.css`](../../frontend/src/styles/tokens.css)에 클래스로 정의됨. 각 항목은 파일 내 `C-…` 주석으로 찾을 수 있다.
 
 | ID | 역할 |
 |----|------|
@@ -85,5 +85,5 @@
 ## 변경 규칙
 
 - 색/크기/간격은 **반드시 토큰으로**. 화면에서 색을 하드코딩하지 않는다.
-- 새 컴포넌트/패턴을 도입하면 (1) `tokens.css`에 `C-…`/주석과 함께 추가하고 (2) 이 문서 표에 등재한 뒤 (3) [`../mockups/README.md`](../mockups/README.md)의 화면별 매핑에서 참조한다.
+- 새 컴포넌트/패턴을 도입하면 (1) 정식 소스 [`frontend/src/styles/tokens.css`](../../frontend/src/styles/tokens.css)에 `C-…`/주석과 함께 추가하고 (2) 이 문서 표에 등재한 뒤 (3) [`../mockups/README.md`](../mockups/README.md)의 화면별 매핑에서 참조한다.
 - 토큰을 바꾸면 모든 화면에 영향이 가므로, 변경 후 4개 화면을 모두 눈으로 확인한다.

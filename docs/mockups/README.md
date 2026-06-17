@@ -4,7 +4,7 @@
 
 이 문서가 **mockup ↔ 여정·단계 ↔ 가치 ↔ 디자인 시스템 연결의 단일 소스**다. 목업을 추가/수정/삭제하면 반드시 이 표와 [`../user-journeys/README.md`](../user-journeys/README.md), [`../doc-tracker.md`](../doc-tracker.md)를 함께 갱신한다.
 
-> 시각 토큰·컴포넌트의 정의는 [`../design-system/`](../design-system/) (단일 소스: `tokens.css`). 가치 정의는 [`../values.md`](../values.md). 여정 정의는 [`../user-journeys/`](../user-journeys/).
+> 시각 토큰·컴포넌트 정의의 정식 소스는 [`../../frontend/src/styles/tokens.css`](../../frontend/src/styles/tokens.css), 설명 문서는 [`../design-system/`](../design-system/). 가치 정의는 [`../values.md`](../values.md). 여정 정의는 [`../user-journeys/`](../user-journeys/).
 
 ## 화면 미리보기
 
@@ -61,7 +61,7 @@
 
 ## 화면 → 디자인 시스템 컴포넌트 매핑
 
-각 화면이 사용하는 [`../design-system/tokens.css`](../design-system/tokens.css)의 컴포넌트(C-*)와 패턴(P-*). 컴포넌트/패턴 정의는 [`../design-system/README.md`](../design-system/README.md) 참조.
+각 화면이 사용하는 [`../../frontend/src/styles/tokens.css`](../../frontend/src/styles/tokens.css)의 컴포넌트(C-*)와 패턴(P-*). 컴포넌트/패턴 정의는 [`../design-system/README.md`](../design-system/README.md) 참조.
 
 | 화면 | 사용 컴포넌트 (C-*) | 적용 패턴 (P-*) |
 |------|---------------------|-----------------|
