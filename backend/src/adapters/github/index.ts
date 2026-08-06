@@ -20,6 +20,21 @@ export interface RawPullRequest {
   isBot: boolean;
   additions: number;
   deletions: number;
+  /**
+   * Raw signals for inferring the human behind a bot-authored PR (AC1-2).
+   * Optional and read-only: when absent (or empty) the author is "추정 불가" and
+   * becomes a gap-detection target. Populating these from the GitHub API is
+   * deferred to the adapter impl; keeping them here (not a mutating method)
+   * preserves the AC6-5 read-only boundary.
+   */
+  inferenceSignals?: {
+    /** Commit author logins on the PR — the highest-priority inference signal. */
+    commitAuthors?: string[];
+    /** User recorded as having triggered the bot (e.g. the workflow actor). */
+    triggeredBy?: string;
+    /** Assignee of an issue linked from the PR. */
+    linkedIssueAssignee?: string;
+  };
 }
 
 export interface GithubAdapter {
