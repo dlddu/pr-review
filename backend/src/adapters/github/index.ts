@@ -1,4 +1,4 @@
-import type { PullRequestRef } from '@lens/shared';
+import type { ExternalRef, PullRequestRef } from '@lens/shared';
 import { notImplemented } from '../../internal/not-implemented.js';
 
 /**
@@ -34,6 +34,31 @@ export interface RawPullRequest {
     triggeredBy?: string;
     /** Assignee of an issue linked from the PR. */
     linkedIssueAssignee?: string;
+  };
+  /**
+   * Branch the PR is opened from (its `head` ref). Optional and read-only:
+   * issue keys are conventionally encoded in branch names
+   * (`csj/eng-42-fix-guard`), so context collection scans it alongside the body
+   * when linking issues (AC2-2).
+   */
+  headRef?: string;
+  /**
+   * Raw signals for review-context collection (PRD-2). Optional and read-only:
+   * when a signal is absent the corresponding context item is recorded as an
+   * explicit "없음" rather than an error (AC2-6). Resolving these through the
+   * Linear/Slack adapters is deferred to the adapter impl; carrying them as
+   * data here — rather than as mutating methods — preserves the AC6-5
+   * read-only boundary.
+   */
+  contextSignals?: {
+    /** Commit messages on the PR — a secondary intent signal (AC2-1). */
+    commitMessages?: string[];
+    /** Issues already resolved for refs found on the PR (AC2-2, AC2-5). */
+    issues?: { ref: ExternalRef; title?: string; dueDate?: string }[];
+    /** Discussion threads already resolved for links found on the PR (AC2-3). */
+    threads?: { ref: ExternalRef; summary?: string }[];
+    /** A schedule signal not tied to an issue, e.g. a release date (AC2-5). */
+    releaseDate?: string;
   };
 }
 
