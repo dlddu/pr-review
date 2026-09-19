@@ -2,7 +2,7 @@
 
 특정 페르소나가 특정 목표를 달성하기까지의 단계 흐름을 모은 폴더. 각 여정은 **어떤 가치를 달성하는지**(V1~V5 참조)와 **각 단계가 어떤 mockup으로 시각화되는지**를 추적한다. 이 인덱스가 여정 ↔ 가치 ↔ mockup 연결의 단일 소스다.
 
-> 가치 정의는 [`../values.md`](../values.md), 가치 → PRD → AC → 테스트의 백엔드 사슬과 전체 상태는 [`../doc-tracker.md`](../doc-tracker.md) 참조.
+> 가치 정의는 [`../values.md`](../values.md), 가치 → PRD → AC → 테스트의 백엔드 사슬과 전체 상태는 [`../doc-tracker/`](../doc-tracker/index.md) 참조.
 
 ## 기본 페르소나
 
@@ -55,4 +55,4 @@ J1 리뷰 소비 → 신뢰 검증 ──(논리 공백 발견 시)──▶ J2 
 
 → **시각화 누락 단계 0개.** 18개 단계 전부 화면에 연결됨. 디자인 시스템 문서는 [`../design-system/`](../design-system/), 토큰 정식 소스는 [`../../frontend/src/styles/tokens.css`](../../frontend/src/styles/tokens.css)이며 모든 화면이 공유한다.
 
-> mockup이 추가/수정/제거될 때 이 표와 각 여정 문서의 단계별 시각화 줄, 그리고 [`../mockups/README.md`](../mockups/README.md)·[`../doc-tracker.md`](../doc-tracker.md)를 함께 갱신할 것. (인덱스 갱신 누락이 가장 흔한 실패 모드.)
+> mockup이 추가/수정/제거될 때 이 표와 각 여정 문서의 단계별 시각화 줄, 그리고 [`../mockups/README.md`](../mockups/README.md)·[`../doc-tracker/`](../doc-tracker/index.md)를 함께 갱신할 것. (인덱스 갱신 누락이 가장 흔한 실패 모드.)
