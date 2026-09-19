@@ -2,7 +2,7 @@
 
 리뷰 렌즈가 **실제로 보여줄 화면**의 목업을 모은 폴더. 추상적인 여정 단계마다 조각을 만드는 대신, 사용자가 한 번에 마주하는 **화면 단위**로 묶었다. 4개 화면이 4개 여정의 18개 단계를 모두 덮는다.
 
-이 문서가 **mockup ↔ 여정·단계 ↔ 가치 ↔ 디자인 시스템 연결의 단일 소스**다. 목업을 추가/수정/삭제하면 반드시 이 표와 [`../user-journeys/README.md`](../user-journeys/README.md), [`../doc-tracker.md`](../doc-tracker.md)를 함께 갱신한다.
+이 문서가 **mockup ↔ 여정·단계 ↔ 가치 ↔ 디자인 시스템 연결의 단일 소스**다. 목업을 추가/수정/삭제하면 반드시 이 표와 [`../user-journeys/README.md`](../user-journeys/README.md), [`../doc-tracker/`](../doc-tracker/index.md)를 함께 갱신한다.
 
 > 시각 토큰·컴포넌트 정의의 정식 소스는 [`../../frontend/src/styles/tokens.css`](../../frontend/src/styles/tokens.css), 설명 문서는 [`../design-system/`](../design-system/). 가치 정의는 [`../values.md`](../values.md). 여정 정의는 [`../user-journeys/`](../user-journeys/).
 
@@ -85,5 +85,5 @@
 목업을 추가/수정/삭제하면:
 1. 이 문서의 화면 목록·단계 매핑·컴포넌트 매핑을 갱신.
 2. [`../user-journeys/README.md`](../user-journeys/README.md)의 "시각화 (mockup) 상태" 표와 각 여정 문서 단계의 시각화 줄을 갱신.
-3. [`../doc-tracker.md`](../doc-tracker.md)의 프론트엔드 사슬 상태·여정 매트릭스·위험 진단·변경 이력을 갱신.
+3. [`../doc-tracker/`](../doc-tracker/index.md)의 프론트엔드 사슬 상태·여정 매트릭스·위험 진단·변경 이력을 갱신.
 4. 새 컴포넌트/패턴을 도입했으면 [`../design-system/README.md`](../design-system/README.md)에 먼저 추가하고 여기서 참조.
