@@ -19,6 +19,12 @@ export interface Intent {
 export interface IssueLink {
   ref: ExternalRef;
   title?: string;
+  /**
+   * ISO-8601 due date carried by the issue, when it has one. This is where the
+   * schedule context of a PR usually comes from (AC2-5): the deadline lives on
+   * the linked issue, not on the PR itself.
+   */
+  dueDate?: string;
 }
 
 /** A linked discussion thread, primarily Slack (AC2-3, optional). */
